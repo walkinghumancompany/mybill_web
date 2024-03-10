@@ -1,8 +1,12 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'calculator/classification_platform.dart';
 import 'package:mybill_web/models/colors_model.dart';
 import 'package:video_player/video_player.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'web_top_appbar.dart';
+import 'package:flutter/foundation.dart' show kIsWeb;
 
 class intro_company extends StatefulWidget {
   const intro_company({Key? key}) : super(key: key);
@@ -43,10 +47,114 @@ class _intro_companyState extends State<intro_company> {
 
   @override
   Widget build(BuildContext context) {
-    double screenHeight = MediaQuery.of(context).size.height;
+
     // Device type 분류: 0 - 모바일, 1 - 태블릿, 2 - 웹
     int deviceType = _classificationPlatform.classifyWithScreenSize(
         context: context);
+
+    final int screenType = _classificationPlatform.classifyWithDevice(context: context);
+
+    final screenSize = MediaQuery.of(context).size;
+    double screenHeight = MediaQuery.of(context).size.height;
+    final double buttonWidth = MediaQuery.of(context).size.width * 0.5;
+    final double buttonHeight = 50;
+    final double tabletButtonWidth = MediaQuery.of(context).size.width * 0.3;
+    final double tabletButtonHeight = 50;
+
+    // Widget introTextWidget;
+    // if(screenType == 0){
+    //   introTextWidget = Positioned(
+    //     left: 220,
+    //     top: 100,
+    //     height: screenHeight * 0.3,
+    //     child: Image.asset('assets/introText_add.png', fit: BoxFit.contain,),
+    //   );
+    // }else{
+    //   introTextWidget = Align(
+    //     alignment: Alignment.center,
+    //     child: Positioned(
+    //       top: 100,
+    //       child: Image.asset('assets/introText_add.png', fit: BoxFit.contain, height: screenHeight * 0.3),
+    //     ),
+    //   );
+    // }
+
+    Widget positionedWidget;
+    if(screenType == 0){
+      positionedWidget = Positioned(
+          top: (screenSize.height - buttonHeight) / 1.7,
+          left: (screenSize.width - buttonWidth) / 2,
+          width: buttonWidth,
+          height: buttonHeight,
+          child: ElevatedButton(
+            onPressed: () => launchPhone("1566-3988"),
+            style: ButtonStyle(
+              backgroundColor: MaterialStateProperty.all(Color(0xff1F5372)),
+              shape: MaterialStateProperty.all(StadiumBorder()),
+              padding: MaterialStateProperty.all(EdgeInsets.symmetric(horizontal: 48, vertical: 15)),
+            ),
+            child: const Text(
+              '견적문의전화',
+              style: TextStyle(
+                  fontFamily: 'AppleSDGothicNeo',
+                  fontWeight: FontWeight.w600,
+                  fontSize: 16,
+                  color: Colors.white
+              ),
+            ),
+          )
+      );
+    }else if(screenType == 1){
+      positionedWidget = Positioned(
+          top: 650,
+          left: (screenSize.width - tabletButtonWidth) / 2.5,
+          width: 280,
+          height: 58,
+          child: ElevatedButton(
+            onPressed: () => null,
+            style: ButtonStyle(
+              backgroundColor: MaterialStateProperty.all(Color(0xff1F5372)),
+              shape: MaterialStateProperty.all(StadiumBorder()),
+              padding: MaterialStateProperty.all(EdgeInsets.symmetric(horizontal: 48, vertical: 15)),
+            ),
+            child: const Text(
+              '견적문의 : 1566-3988',
+              style: TextStyle(
+                  fontFamily: 'AppleSDGothicNeo',
+                  fontWeight: FontWeight.w600,
+                  fontSize: 16,
+                  color: Colors.white
+              ),
+            ),
+          )
+      );
+    }else if(screenType == 2){
+      positionedWidget = Positioned(
+          top: 500,
+          left: (screenSize.width - tabletButtonWidth) / 2.6,
+          width: 280,
+          height: 50,
+          child: ElevatedButton(
+            onPressed: () => null,
+            style: ButtonStyle(
+              backgroundColor: MaterialStateProperty.all(Color(0xff1F5372)),
+              shape: MaterialStateProperty.all(StadiumBorder()),
+              padding: MaterialStateProperty.all(EdgeInsets.symmetric(horizontal: 48, vertical: 15)),
+            ),
+            child: const Text(
+              '견적문의 : 01057397300',
+              style: TextStyle(
+                  fontFamily: 'AppleSDGothicNeo',
+                  fontWeight: FontWeight.w600,
+                  fontSize: 16,
+                  color: Colors.white
+              ),
+            ),
+          )
+      );
+    }else {
+      positionedWidget = Container();
+    }
 
     double widthMultiplier;
     switch (deviceType) {
@@ -66,7 +174,7 @@ class _intro_companyState extends State<intro_company> {
       resizeToAvoidBottomInset: false,
       backgroundColor: _colorsModel.wh,
       body: Align(
-        alignment: Alignment.topCenter,
+        alignment: Alignment.center,
         child: Column(
           mainAxisSize: MainAxisSize.min,
           mainAxisAlignment: MainAxisAlignment.start,
@@ -84,7 +192,7 @@ class _intro_companyState extends State<intro_company> {
               width: MediaQuery.of(context).size.width * widthMultiplier,
               height: screenHeight * 0.12,
               alignment: Alignment.centerLeft,
-              padding: EdgeInsets.all(10.0),
+              padding: EdgeInsets.only(top: 30, left: 20),
               color: _colorsModel.selectedBoxColor,
               child: Image.asset('assets/introText.png', fit: BoxFit.contain,),
             ),
@@ -103,17 +211,17 @@ class _intro_companyState extends State<intro_company> {
                     child: Image.asset('assets/web_main.png', fit: BoxFit.cover,),
                   ),
                 ),
-                // introText_sec.png 이미지 배치
                 Positioned(
-                  left: 20,
-                  top: 20,
-                  height: screenHeight * 0.4,
-                  child: Image.asset('assets/introText_sec.png', fit: BoxFit.contain,),
+                  left: 220,
+                  top: 100,
+                  height: screenHeight * 0.3,
+                  child: Image.asset('assets/introText_add.png', fit: BoxFit.contain,),
                 ),
+                // introTextWidget,
                 Positioned(
-                  height: screenHeight * 0.5,
-                  top: 120,
-                  left: 30,
+                  height: screenHeight * 0.38,
+                  top: 70,
+                  left: 25,
                   child: _introTextController?.value.isInitialized ?? false
                       ? AspectRatio(
                     aspectRatio: _introTextController!.value.aspectRatio,
@@ -124,11 +232,31 @@ class _intro_companyState extends State<intro_company> {
                     child: Center(child: CircularProgressIndicator()),
                   ),
                 ),
+                positionedWidget,
               ],
             ),
           ],
         ),
       ),
     );
+  }
+  void launchPhone(String phoneNumber) async {
+    final String url = 'tel:$phoneNumber';
+    if (kIsWeb) {
+      // 웹 플랫폼일 경우 HTML <a> 태그를 사용
+      // HTML을 직접 조작하는 대신 url_launcher 패키지 사용
+      if (await canLaunch(url)) {
+        await launch(url);
+      } else {
+        throw 'Could not launch $url';
+      }
+    } else {
+      // 모바일 또는 데스크탑 플랫폼일 경우
+      if (await canLaunch(url)) {
+        await launch(url);
+      } else {
+        throw 'Could not launch $url';
+      }
+    }
   }
 }

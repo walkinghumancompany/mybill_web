@@ -198,38 +198,42 @@ class _main_pageState extends State<main_page> with SingleTickerProviderStateMix
                         height: 25,
                       ),
                       Container(
+                        padding: EdgeInsets.only(right: 4),
                         child: Text('상호 : 주식회사 마이빌',
                           style: TextStyle(
                               fontFamily: 'AppleSDGothicNeo', // 폰트 패밀리 지정
                               fontWeight: FontWeight.w400,
-                              fontSize: 14,
-                              color: _colorsModel.g97
+                              fontSize: 13,
+                              color: _colorsModel.g97,
                           ),),
                       ),
                       Container(
+                        padding: EdgeInsets.only(right: 4),
                         child: Text('대표자 : 최훈',
                           style: TextStyle(
                               fontFamily: 'AppleSDGothicNeo', // 폰트 패밀리 지정
                               fontWeight: FontWeight.w400,
-                              fontSize: 14,
+                              fontSize: 13,
                               color: _colorsModel.g97
                           ),),
                       ),
                       Container(
+                        padding: EdgeInsets.only(right: 4),
                         child: Text('사업자번호 : 199-88-02887',
                           style: TextStyle(
                               fontFamily: 'AppleSDGothicNeo', // 폰트 패밀리 지정
                               fontWeight: FontWeight.w400,
-                              fontSize: 14,
+                              fontSize: 13,
                               color: _colorsModel.g97
                           ),),
                       ),
                       Container(
+                        padding: EdgeInsets.only(right: 4),
                         child: Text('주소 : 경상남도 하동군 금남면 큰삼내길2',
                           style: TextStyle(
                               fontFamily: 'AppleSDGothicNeo', // 폰트 패밀리 지정
                               fontWeight: FontWeight.w400,
-                              fontSize: 14,
+                              fontSize: 13,
                               color: _colorsModel.g97
                           ),),
                       ),
