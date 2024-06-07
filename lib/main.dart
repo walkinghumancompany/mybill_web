@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '/main_page.dart';
+import 'inquiry_page.dart';
 
 void main() {
   runApp(const MybillWeb());
@@ -21,6 +22,7 @@ class MybillWeb extends StatelessWidget {
       routes: {
         '/main_page': (context) => main_page(),
         '/main': (context) => main_page(),
+        '/inquiry_page': (context) => Inquiry()
       },
     );
   }
