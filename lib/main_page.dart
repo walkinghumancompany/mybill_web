@@ -21,6 +21,24 @@ class _main_pageState extends State<main_page> with SingleTickerProviderStateMix
   ColorsModel _colorsModel = ColorsModel();
   final CarouselController _controller = CarouselController();
   int countPage = 1;
+  int _currentIndex = 0;
+
+  final List<String?> imgList = [
+    'assets/1.png',
+    'assets/2.png',
+    'assets/3.png',
+    'assets/4.png'
+  ];
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -77,12 +95,6 @@ class _main_pageState extends State<main_page> with SingleTickerProviderStateMix
 
   Widget _buildMobileLayout() {
 
-    final List<String?> imgList = [
-      'assets/1.png',
-      'assets/2.png',
-      'assets/3.png',
-      'assets/4.png'
-    ];
     double containerWidth = MediaQuery.of(context).size.width;
     return Column(
           children: [
@@ -95,7 +107,7 @@ class _main_pageState extends State<main_page> with SingleTickerProviderStateMix
                         width: MediaQuery.of(context).size.width,
                         height: 330,
                         child: Opacity(
-                          opacity: 0.2,
+                          opacity: 0.3,
                           child: Image.asset('assets/main.png',
                             fit: BoxFit.cover,),
                         ),
@@ -377,7 +389,7 @@ class _main_pageState extends State<main_page> with SingleTickerProviderStateMix
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Container(
-                width: MediaQuery.of(context).size.width * 0.25,
+                width: MediaQuery.of(context).size.width * 0.12,
                 child: Image.asset(
                   'assets/Text03.png',
                   fit: BoxFit.contain,
@@ -387,11 +399,11 @@ class _main_pageState extends State<main_page> with SingleTickerProviderStateMix
               Row(
                 children: [
                   Container(
-                    alignment: Alignment.bottomRight,
-                    width: MediaQuery.of(context).size.width * 0.15,
-                    child: const Text(
-                      '01 / 04',
-                      style: TextStyle(
+                    alignment: Alignment.centerRight,
+                    width: MediaQuery.of(context).size.width * 0.2,
+                    child: Text(
+                      '0${_currentIndex + 1} / 0${imgList.length}',
+                      style: const TextStyle(
                         fontFamily: 'AppleSDGothicNeo',
                         fontWeight: FontWeight.w500,
                         fontSize: 14,
@@ -400,21 +412,25 @@ class _main_pageState extends State<main_page> with SingleTickerProviderStateMix
                     ),
                   ),
                   SizedBox(
-                    width: MediaQuery.of(context).size.width * 0.05,
+                    width: MediaQuery.of(context).size.width * 0.04,
                     child: IconButton(
                       padding: EdgeInsets.zero,
                       onPressed: () {
-                        // Add your onPressed code here!
+                        setState(() {
+                          _currentIndex = (_currentIndex - 1 + imgList.length) % imgList.length;
+                        });
                       },
                       icon: Icon(Icons.arrow_back),
                     ),
                   ),
                   SizedBox(
-                    width: MediaQuery.of(context).size.width * 0.05,
+                    width: MediaQuery.of(context).size.width * 0.04,
                     child: IconButton(
                       padding: EdgeInsets.zero,
                       onPressed: () {
-                        // Add your onPressed code here!
+                        setState(() {
+                          _currentIndex = (_currentIndex + 1) % imgList.length;
+                        });
                       },
                       icon: Icon(Icons.arrow_forward),
                     ),
@@ -423,21 +439,63 @@ class _main_pageState extends State<main_page> with SingleTickerProviderStateMix
               ),
             ],
           ),
-          Container(
-              height: MediaQuery.of(context).size.height * 0.5,
-              child: picScroll(context, imgList)
-          )
+          const SizedBox(height: 21),
+          buildImageCarousel_tablet(),
+          const SizedBox(height: 100),
         ],
       );
   }
+  Widget buildImageCarousel_tablet() {
+    return Container(
+        height: 500,
+        child: Padding(
+          padding: const EdgeInsets.all(10),
+          child:Stack(
+            children: [
+              Positioned(
+                top: 10,
+                width: MediaQuery.of(context).size.width * 0.32,
+                child: Image.asset('assets/Text04-Web.png',
+                  fit: BoxFit.contain,),
+              ),
+              Positioned(
+                top: 100,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  children: [
+                    buildImageContainer_tablet(0),
+                    SizedBox(width: MediaQuery.of(context).size.width * 0.01),
+                    buildImageContainer_tablet(1),
+                    SizedBox(width: MediaQuery.of(context).size.width * 0.01),
+                    buildImageContainer_tablet(2),
+                  ],
+                ),
+              )
+            ],
+          ),
+        )
+    );
+  }
+  Widget buildImageContainer_tablet(int index) {
+    int imgIndex = (_currentIndex + index) % imgList.length;
+    double? width = (index ==2) ? MediaQuery.of(context).size.width * 0.4 : MediaQuery.of(context).size.width * 0.2;
+    double? height = (index == 2) ? null : width; // 큰 이미지 조건 설정
+
+    return AnimatedContainer(
+      duration: Duration(milliseconds: 600),
+      curve: Curves.easeInOut,
+      width: width,
+      height: height,
+      alignment: Alignment.bottomCenter,
+      child: Image.asset(
+        imgList[imgIndex]!,
+        fit: BoxFit.cover,
+      ),
+    );
+  }
 
   Widget _buildDesktopLayout() {
-    final List<String?> imgList = [
-      'assets/1.png',
-      'assets/2.png',
-      'assets/3.png',
-      'assets/4.png'
-    ];
     return Column(
         children: [
           Container(
@@ -508,9 +566,9 @@ class _main_pageState extends State<main_page> with SingleTickerProviderStateMix
                   Container(
                     alignment: Alignment.centerRight,
                     width: MediaQuery.of(context).size.width * 0.17,
-                    child: const Text(
-                      '01 / 04',
-                      style: TextStyle(
+                    child: Text(
+                      '0${_currentIndex + 1} / 0${imgList.length}',
+                      style: const TextStyle(
                         fontFamily: 'AppleSDGothicNeo',
                         fontWeight: FontWeight.w500,
                         fontSize: 14,
@@ -523,7 +581,9 @@ class _main_pageState extends State<main_page> with SingleTickerProviderStateMix
                     child: IconButton(
                       padding: EdgeInsets.zero,
                       onPressed: () {
-                        // Add your onPressed code here!
+                        setState(() {
+                          _currentIndex = (_currentIndex - 1 + imgList.length) % imgList.length;
+                        });
                       },
                       icon: Icon(Icons.arrow_back),
                     ),
@@ -533,7 +593,9 @@ class _main_pageState extends State<main_page> with SingleTickerProviderStateMix
                     child: IconButton(
                       padding: EdgeInsets.zero,
                       onPressed: () {
-                        // Add your onPressed code here!
+                        setState(() {
+                          _currentIndex = (_currentIndex + 1) % imgList.length;
+                        });
                       },
                       icon: Icon(Icons.arrow_forward),
                     ),
@@ -542,11 +604,62 @@ class _main_pageState extends State<main_page> with SingleTickerProviderStateMix
               ),
             ],
           ),
-          Container(
-            height: MediaQuery.of(context).size.height * 0.5,
-            child: picScroll(context, imgList)
-          )
+          const SizedBox(height: 21),
+          buildImageCarousel(),
+          const SizedBox(height: 100),
         ],
+    );
+
+  }
+  Widget buildImageCarousel() {
+    return Container(
+      height: 400,
+      child: Padding(
+        padding: const EdgeInsets.all(10),
+        child:Stack(
+          children: [
+            Positioned(
+              top: 10,
+              width: MediaQuery.of(context).size.width * 0.2,
+              child: Image.asset('assets/Text04-Web.png',
+                fit: BoxFit.contain,),
+            ),
+            Positioned(
+              bottom: 5,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                crossAxisAlignment: CrossAxisAlignment.end,
+                children: [
+                  buildImageContainer(0),
+                  SizedBox(width: MediaQuery.of(context).size.width * 0.01),
+                  buildImageContainer(1),
+                  SizedBox(width: MediaQuery.of(context).size.width * 0.01),
+                  buildImageContainer(2),
+                ],
+              ),
+            )
+          ],
+        ),
+      )
+    );
+  }
+
+
+  Widget buildImageContainer(int index) {
+    int imgIndex = (_currentIndex + index) % imgList.length;
+    double? width = (index ==2) ? null : MediaQuery.of(context).size.width * 0.13;
+    double? height = (index == 2) ? 300 : width; // 큰 이미지 조건 설정
+
+    return AnimatedContainer(
+      duration: Duration(milliseconds: 600),
+      curve: Curves.easeInOut,
+      width: width,
+      height: height,
+      alignment: Alignment.bottomCenter,
+      child: Image.asset(
+        imgList[imgIndex]!,
+        fit: BoxFit.contain,
+      ),
     );
   }
 

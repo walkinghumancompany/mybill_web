@@ -92,7 +92,7 @@ class CommonAppBar extends StatelessWidget implements PreferredSizeWidget {
                   if (result == 0) {
                         Navigator.of(context).pushNamed('/inquiry_page');
                   } else if (result == 1) {
-                    // Handle "임대업 및 소규모 입주민회"
+                        Navigator.of(context).pushNamed('/faq_page');
                   }
                 },
                 offset: 7.0,
@@ -167,7 +167,7 @@ class CommonAppBar extends StatelessWidget implements PreferredSizeWidget {
                   if (result == 0) {
                     Navigator.of(context).pushNamed('/inquiry_page');
                   } else if (result == 1) {
-                    // Handle "임대업 및 소규모 입주민회"
+                    Navigator.of(context).pushNamed('/faq_page');
                   }
                 },
                 offset: 7.0,
@@ -277,15 +277,15 @@ class CommonAppBar extends StatelessWidget implements PreferredSizeWidget {
             ),
             GestureDetector(
               onTap: () {
-                Navigator.of(context).pushNamed('/main'); // Adjust route as needed
+                Navigator.of(context).pushNamed('/faq_page');
               },
-              child: const Text(
+              child: Text(
                 'FAQ',
                 style: TextStyle(
                   fontFamily: 'AppleSDGothicNeo',
                   fontWeight: FontWeight.w600,
                   fontSize: 14,
-                  color: Colors.black,
+                  color: ModalRoute.of(context)?.settings.name == '/faq_page' ? const Color(0xFF1F5372) : Colors.black
                 ),
               ),
             ),

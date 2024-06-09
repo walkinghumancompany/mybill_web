@@ -22,3 +22,8 @@ class ColorsModel {
   final Color selectedBoxColor = const Color(0xfff5f8f9);
   final Color webLineColor = const Color(0xffE4E4E4);
 }
+
+
+
+
+

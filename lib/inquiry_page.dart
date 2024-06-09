@@ -9,10 +9,10 @@ class Inquiry extends StatefulWidget {
   const Inquiry({Key? key}) : super(key: key);
 
   @override
-  State<Inquiry> createState() => _InQuiryState();
+  State<Inquiry> createState() => _InquiryState();
 }
 
-class _InQuiryState extends State<Inquiry> {
+class _InquiryState extends State<Inquiry> {
 
   ClassificationPlatform _classificationPlatform = ClassificationPlatform();
   ColorsModel _colorsModel = ColorsModel();
