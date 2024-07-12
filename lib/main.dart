@@ -1,10 +1,30 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:mybill_web/service_introduce.dart';
 import '/main_page.dart';
 import 'inquiry_page.dart';
 import 'faq_page.dart';
+import 'main_desktop.dart';
+import 'service_introduce.dart';
 
 void main() {
-  runApp(const MybillWeb());
+  runApp(
+    ChangeNotifierProvider(
+      create: (context) => MainDesktopState(),
+      child: const MybillWeb(),
+    ),
+  );
+}
+
+class MainDesktopState extends ChangeNotifier {
+  bool _isActive = true;
+
+  bool get isActive => _isActive;
+
+  void setActive(bool value) {
+    _isActive = value;
+    notifyListeners();
+  }
 }
 
 class MybillWeb extends StatelessWidget {
@@ -19,10 +39,11 @@ class MybillWeb extends StatelessWidget {
           fontFamily: 'AppleSDGothicNeo'
       ),
       color: Color(0xffF1EEDE),
-      initialRoute: "/main_page",
+      initialRoute: "/main",
       routes: {
-        '/main_page': (context) => main_page(),
-        '/main': (context) => main_page(),
+        '/main': (context) => MainPage(),
+        '/main_desktop': (context) => MainDesktopWrapper(),
+        '/service_introduce': (context) => ServiceIntroduce(),
         '/inquiry_page': (context) => Inquiry(),
         '/faq_page': (context) => FaqPage()
       },
@@ -30,3 +51,12 @@ class MybillWeb extends StatelessWidget {
   }
 }
 
+class MainDesktopWrapper extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MainDesktop(
+      scrollController: ScrollController(),
+      isActive: true, resetKey: UniqueKey(),
+    );
+  }
+}

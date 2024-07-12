@@ -1,8 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'calculator/classification_platform.dart';
 import 'package:mybill_web/models/colors_model.dart';
 import 'package:mybill_web/common_app_bar.dart';
+
+import 'main.dart';
 
 class FaqPage extends StatefulWidget {
   const FaqPage({Key? key}) : super(key: key);
@@ -15,6 +18,14 @@ class _FaqPageState extends State<FaqPage> {
 
   ClassificationPlatform _classificationPlatform = ClassificationPlatform();
   ColorsModel _colorsModel = ColorsModel();
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      Provider.of<MainDesktopState>(context, listen: false).setActive(false);
+    });
+  }
 
   final List<Map<String, String>> faqList = [
     {

@@ -16,6 +16,7 @@ dependencies:
   flutter_html: ^2.2.1
   uuid: ^4.3.3
   carousel_slider: ^4.2.1
+  provider: ^6.1.2
 
 dev_dependencies:
   flutter_test:
@@ -29,23 +30,12 @@ flutter:
     - assets/List.png
     - assets/main.png
     - assets/X.png
-    - assets/Text01.png
-    - assets/Text02.png
-    - assets/Text03.png
-    - assets/Text04.png
-    - assets/Text04-Web.png
-    - assets/Text05.png
-    - assets/Text05-Web.png
-    - assets/Text06.png
-    - assets/Text07.png
     - assets/TextFaq.png
     - assets/downArrow.png
+    - assets/mybillLogo.png
     - assets/Logo.png
-    - assets/1.png
-    - assets/2.png
-    - assets/3.png
-    - assets/4.png
     - assets/icons/
+    - assets/
 
   fonts:
     - family: AppleSDGothicNeo
