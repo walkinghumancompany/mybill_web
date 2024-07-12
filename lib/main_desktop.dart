@@ -6,6 +6,7 @@ class MainDesktop extends StatefulWidget {
   final bool isActive;
   final Key resetKey;
   const MainDesktop({
+    Key? key,
     required this.resetKey,
     required this.scrollController,
     required this.isActive,
@@ -27,6 +28,7 @@ class _MainDesktopState extends State<MainDesktop> {
   String _currentImage = 'assets/menubar-home.png';
   String _currentMenu = 'HOME';
 
+
   @override
   void initState() {
     super.initState();
@@ -35,39 +37,6 @@ class _MainDesktopState extends State<MainDesktop> {
     });
     widget.scrollController.addListener(_scrollListener);
   }
-
-  @override
-  void didUpdateWidget(MainDesktop oldWidget) {
-    super.didUpdateWidget(oldWidget);
-    if (widget.resetKey != oldWidget.resetKey) {
-      WidgetsBinding.instance.addPostFrameCallback((_) {
-        _resetState();
-      });
-    } else if (widget.isActive != oldWidget.isActive) {
-      WidgetsBinding.instance.addPostFrameCallback((_) {
-        if (widget.isActive) {
-          _addOverlays();
-        } else {
-          _removeOverlays();
-        }
-      });
-    }
-  }
-
-  void _resetState() {
-    setState(() {
-      _currentImage = 'assets/menubar-home.png';
-      _currentMenu = 'HOME';
-    });
-    _removeOverlays();
-    widget.scrollController.jumpTo(0);
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      if (mounted) {
-        _addOverlays();
-      }
-    });
-  }
-
 
   void _updateOverlays() {
     if (widget.isActive) {
@@ -122,6 +91,7 @@ class _MainDesktopState extends State<MainDesktop> {
   }
 
   void _updateCurrentMenuAndImage(String newMenu, String newImage) {
+    print('Updating menu to: $newMenu, image to: $newImage');
     setState(() {
       _currentMenu = newMenu;
       _currentImage = newImage;
@@ -136,15 +106,6 @@ class _MainDesktopState extends State<MainDesktop> {
       });
       _overlayEntry?.markNeedsBuild();
     }
-  }
-
-
-  void _updateImage(String imgPath) {
-    if (_currentImage != imgPath) {
-      setState(() {
-        _currentImage = imgPath;
-      });
-    } _overlayEntry_grid?.markNeedsBuild();
   }
 
   OverlayEntry _createOverlayEntry() {
@@ -199,6 +160,7 @@ class _MainDesktopState extends State<MainDesktop> {
   OverlayEntry _overlayGrid() {
     return OverlayEntry(
       builder: (context) {
+        print('_overlayGrid called. Current image: $_currentImage');
         return Positioned(
           top: MediaQuery.of(context).size.height * 0.3,
           right: MediaQuery.of(context).size.width * 0.29 - 60,
@@ -212,6 +174,8 @@ class _MainDesktopState extends State<MainDesktop> {
               fit: BoxFit.contain,
               key: UniqueKey(),  // 매번 새로운 키를 생성하여 위젯을 강제로 재생성
               gaplessPlayback: false,
+              cacheWidth: null, // 캐시 비활성화
+              cacheHeight: null, // 캐시 비활성화
             ),
           ),
         );
@@ -230,170 +194,170 @@ class _MainDesktopState extends State<MainDesktop> {
   @override
   Widget build(BuildContext context) {
     return
-        Stack(
-          children: [
-            Column(
-              children: [
-                Opacity(
-                  key: _globalKey_home,
-                  opacity: 0.1,
-                  child: Image.asset('assets/main.png',
-                    fit: BoxFit.contain,
-                    // width: MediaQuery.of(context).size.width * 1,
-                    height: 450,),
-                ),
-                const SizedBox(
-                  height: 70,
-                ),
-                //-------------------서비스 소개--------------------
-                Container(
-                  key: _globalKey_introduce,
-                  alignment: Alignment.topCenter,
-                  height: 85,
-                  child: Image.asset('assets/main-app&web.png',
-                    fit: BoxFit.contain,),
-                ),
-                const SizedBox(
-                  height: 10,
-                ),
-                Container(
-                  alignment: Alignment.topCenter,
-                  height: 280,
-                  decoration: BoxDecoration(
-                      border: Border.all(
-                          width: 1
-                      )
-                  ),
-                ),
-                const SizedBox(
-                  height: 75,
-                ),
-                //-------------------건물관리 사업자 01--------------------
-                Container(
-                  key: _globalKey_business,
-                  alignment: Alignment.topCenter,
-                  height: 25,
-                  child: Image.asset('assets/mainNumber01.png',
-                    fit: BoxFit.contain,),
-                ),
-                const SizedBox(
-                  height: 10,
-                ),
-                Container(
-                  alignment: Alignment.topCenter,
-                  height: 85,
-                  child: Image.asset('assets/main-business.png',
-                    fit: BoxFit.contain,),
-                ),
-                const SizedBox(
-                  height: 15,
-                ),
-                Container(
-                  alignment: Alignment.topCenter,
-                  height: 55,
-                  child: Image.asset('assets/mainDownArrow.png',
-                    fit: BoxFit.contain,),
-                ),
-                const SizedBox(
-                  height: 75,
-                ),
-                Container(
-                  alignment: Alignment.topCenter,
-                  child: Image.asset('assets/main-business01.png',
-                    width: MediaQuery.of(context).size.width * 1,
-                    fit: BoxFit.contain,),
-                ),
-                const SizedBox(
-                  height: 75,
-                ),
-                //-------------------임대업 및 소규모입주민회 02--------------------
-                Container(
-                  key: _globalKey_citizen,
-                  alignment: Alignment.topCenter,
-                  height: 25,
-                  child: Image.asset('assets/mainNumber02.png',
-                    fit: BoxFit.contain,),
-                ),
-                const SizedBox(
-                  height: 10,
-                ),
-                Container(
-                  alignment: Alignment.topCenter,
-                  height: 85,
-                  child: Image.asset('assets/main-citizen.png',
-                    fit: BoxFit.contain,),
-                ),
-                const SizedBox(
-                  height: 15,
-                ),
-                Container(
-                  alignment: Alignment.topCenter,
-                  height: 55,
-                  child: Image.asset('assets/mainDownArrow.png',
-                    fit: BoxFit.contain,),
-                ),
-                const SizedBox(
-                  height: 75,
-                ),
-                Container(
-                  alignment: Alignment.topCenter,
-                  child: Image.asset('assets/main-business02.png',
-                    width: MediaQuery.of(context).size.width * 1,
-                    fit: BoxFit.contain,),
-                ),
-                const SizedBox(
-                  height: 30,
-                ),
-                Container(
-                  alignment: Alignment.center,
-                  height: 75,
-                  padding: EdgeInsets.all(20),
-                  child: Image.asset('assets/main-lastButton.png',
-                    fit: BoxFit.contain,),
-                ),
-                const SizedBox(
-                  height: 100,
-                )
-              ],
-            ),
-            Positioned(
-              top: 80,
-              left: 0,
-              right: 0,
-              child: Image.asset(
-                'assets/desktopText01.png',
-                fit: BoxFit.contain,
-                height: 72,
-              ),
-            ),
-            Positioned(
-              top: 410,
-              left: 0,
-              right: 0,
-              child: Image.asset(
-                'assets/desktopText02.png',
-                fit: BoxFit.contain,
-                height: 9,
-              ),
-            ),
-            Positioned(
-              top: 435,
-              left: 0,
-              right: 0,
-              child: Image.asset(
-                'assets/arrow-down.png',
-                fit: BoxFit.contain,
-                height: 12,
-              ),
-            ),
-            Positioned(
-                top: 365,
-                left: 0,
-                right: 0,
-                child: Image.asset('assets/circle.png',
+      Stack(
+        children: [
+          Column(
+            children: [
+              Opacity(
+                key: _globalKey_home,
+                opacity: 0.1,
+                child: Image.asset('assets/main.png',
                   fit: BoxFit.contain,
-                  height: 120,)),
-          ],
-        );
+                  // width: MediaQuery.of(context).size.width * 1,
+                  height: 450,),
+              ),
+              const SizedBox(
+                height: 70,
+              ),
+              //-------------------서비스 소개--------------------
+              Container(
+                key: _globalKey_introduce,
+                alignment: Alignment.topCenter,
+                height: 85,
+                child: Image.asset('assets/main-app&web.png',
+                  fit: BoxFit.contain,),
+              ),
+              const SizedBox(
+                height: 10,
+              ),
+              Container(
+                alignment: Alignment.topCenter,
+                height: 280,
+                decoration: BoxDecoration(
+                    border: Border.all(
+                        width: 1
+                    )
+                ),
+              ),
+              const SizedBox(
+                height: 75,
+              ),
+              //-------------------건물관리 사업자 01--------------------
+              Container(
+                key: _globalKey_business,
+                alignment: Alignment.topCenter,
+                height: 25,
+                child: Image.asset('assets/mainNumber01.png',
+                  fit: BoxFit.contain,),
+              ),
+              const SizedBox(
+                height: 10,
+              ),
+              Container(
+                alignment: Alignment.topCenter,
+                height: 85,
+                child: Image.asset('assets/main-business.png',
+                  fit: BoxFit.contain,),
+              ),
+              const SizedBox(
+                height: 15,
+              ),
+              Container(
+                alignment: Alignment.topCenter,
+                height: 55,
+                child: Image.asset('assets/mainDownArrow.png',
+                  fit: BoxFit.contain,),
+              ),
+              const SizedBox(
+                height: 75,
+              ),
+              Container(
+                alignment: Alignment.topCenter,
+                child: Image.asset('assets/main-business01.png',
+                  width: MediaQuery.of(context).size.width * 1,
+                  fit: BoxFit.contain,),
+              ),
+              const SizedBox(
+                height: 75,
+              ),
+              //-------------------임대업 및 소규모입주민회 02--------------------
+              Container(
+                key: _globalKey_citizen,
+                alignment: Alignment.topCenter,
+                height: 25,
+                child: Image.asset('assets/mainNumber02.png',
+                  fit: BoxFit.contain,),
+              ),
+              const SizedBox(
+                height: 10,
+              ),
+              Container(
+                alignment: Alignment.topCenter,
+                height: 85,
+                child: Image.asset('assets/main-citizen.png',
+                  fit: BoxFit.contain,),
+              ),
+              const SizedBox(
+                height: 15,
+              ),
+              Container(
+                alignment: Alignment.topCenter,
+                height: 55,
+                child: Image.asset('assets/mainDownArrow.png',
+                  fit: BoxFit.contain,),
+              ),
+              const SizedBox(
+                height: 75,
+              ),
+              Container(
+                alignment: Alignment.topCenter,
+                child: Image.asset('assets/main-business02.png',
+                  width: MediaQuery.of(context).size.width * 1,
+                  fit: BoxFit.contain,),
+              ),
+              const SizedBox(
+                height: 30,
+              ),
+              Container(
+                alignment: Alignment.center,
+                height: 75,
+                padding: EdgeInsets.all(20),
+                child: Image.asset('assets/main-lastButton.png',
+                  fit: BoxFit.contain,),
+              ),
+              const SizedBox(
+                height: 100,
+              )
+            ],
+          ),
+          Positioned(
+            top: 80,
+            left: 0,
+            right: 0,
+            child: Image.asset(
+              'assets/desktopText01.png',
+              fit: BoxFit.contain,
+              height: 72,
+            ),
+          ),
+          Positioned(
+            top: 410,
+            left: 0,
+            right: 0,
+            child: Image.asset(
+              'assets/desktopText02.png',
+              fit: BoxFit.contain,
+              height: 9,
+            ),
+          ),
+          Positioned(
+            top: 435,
+            left: 0,
+            right: 0,
+            child: Image.asset(
+              'assets/arrow-down.png',
+              fit: BoxFit.contain,
+              height: 12,
+            ),
+          ),
+          Positioned(
+              top: 365,
+              left: 0,
+              right: 0,
+              child: Image.asset('assets/circle.png',
+                fit: BoxFit.contain,
+                height: 120,)),
+        ],
+      );
   }
 }

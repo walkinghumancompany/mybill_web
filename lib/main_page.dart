@@ -78,6 +78,7 @@ class _MainPageState extends State<MainPage> {
                           if (deviceType == 0) MainMobile(scrollController: _scrollController),
                           if (deviceType == 1) _buildTabletLayout(),
                           if (deviceType == 2 && mainDesktopState.isActive) MainDesktop(
+                            key: ValueKey('MainDesktop-${DateTime.now().millisecondsSinceEpoch}'),
                             resetKey: UniqueKey(),  // 매번 새로운 키를 생성
                             scrollController: _scrollController,
                             isActive: mainDesktopState.isActive,

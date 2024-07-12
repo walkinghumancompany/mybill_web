@@ -25,6 +25,10 @@ class MainDesktopState extends ChangeNotifier {
     _isActive = value;
     notifyListeners();
   }
+  void reset() {
+    _isActive = true;
+    notifyListeners();
+  }
 }
 
 class MybillWeb extends StatelessWidget {
