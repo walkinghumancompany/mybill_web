@@ -220,7 +220,7 @@ class CommonAppBar extends StatelessWidget implements PreferredSizeWidget {
             GestureDetector(
               onTap: () {
                 Provider.of<MainDesktopState>(context, listen: false).setActive(false);
-                Navigator.of(context).pushNamed('/service_introduce');
+                Navigator.of(context).pushReplacementNamed('/service_introduce');
               },
               child: Text(
                 '서비스소개',
@@ -236,7 +236,7 @@ class CommonAppBar extends StatelessWidget implements PreferredSizeWidget {
             GestureDetector(
               onTap: () {
                 Provider.of<MainDesktopState>(context, listen: false).setActive(false);
-                Navigator.of(context).pushNamed('/inquiry_page');
+                Navigator.of(context).pushReplacementNamed('/inquiry_page');
               },
               child: Text(
                 '견적문의',
@@ -252,7 +252,7 @@ class CommonAppBar extends StatelessWidget implements PreferredSizeWidget {
             GestureDetector(
               onTap: () {
                 Provider.of<MainDesktopState>(context, listen: false).setActive(false);
-                Navigator.of(context).pushNamed('/faq_page');
+                Navigator.of(context).pushReplacementNamed('/faq_page');
               },
               child: Text(
                 'FAQ',
