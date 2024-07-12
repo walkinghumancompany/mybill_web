@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mybill_web/main_mobile.dart';
 import 'package:provider/provider.dart';
 import 'package:mybill_web/service_introduce.dart';
 import '/main_page.dart';
@@ -9,13 +10,29 @@ import 'service_introduce.dart';
 
 void main() {
   runApp(
-    ChangeNotifierProvider(
-      create: (context) => MainDesktopState(),
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (context) => MainDesktopState()),
+        ChangeNotifierProvider(create: (context) => MainMobileState()),
+      ],
       child: const MybillWeb(),
     ),
   );
 }
+class MainMobileState extends ChangeNotifier {
+  bool _isActive = true;
 
+  bool get isActive => _isActive;
+
+  void setActive(bool value) {
+    _isActive = value;
+    notifyListeners();
+  }
+  void reset() {
+    _isActive = true;
+    notifyListeners();
+  }
+}
 class MainDesktopState extends ChangeNotifier {
   bool _isActive = true;
 
@@ -46,11 +63,21 @@ class MybillWeb extends StatelessWidget {
       initialRoute: "/main",
       routes: {
         '/main': (context) => MainPage(),
+        '/main_mobile': (context) => MainMobileWrapper(),
         '/main_desktop': (context) => MainDesktopWrapper(),
         '/service_introduce': (context) => ServiceIntroduce(),
         '/inquiry_page': (context) => Inquiry(),
         '/faq_page': (context) => FaqPage()
       },
+    );
+  }
+}
+class MainMobileWrapper extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MainMobile(
+      scrollController: ScrollController(),
+      isActive: true, resetKey: UniqueKey(),
     );
   }
 }

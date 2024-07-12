@@ -98,12 +98,15 @@ class CommonAppBar extends StatelessWidget implements PreferredSizeWidget {
                 ],
                 onSelected: (int result) {
                   if (result == 0) {
-                        Navigator.of(context).pushNamed('/service_introduce');
+                    Provider.of<MainMobileState>(context, listen: false).setActive(false);
+                    Navigator.of(context).pushReplacementNamed('/service_introduce');
                   } else if (result == 1) {
-                        Navigator.of(context).pushNamed('/inquiry_page');
+                    Provider.of<MainMobileState>(context, listen: false).setActive(false);
+                    Navigator.of(context).pushReplacementNamed('/inquiry_page');
                   }
                   else if (result == 2) {
-                    Navigator.of(context).pushNamed('/faq_page');
+                    Provider.of<MainMobileState>(context, listen: false).setActive(false);
+                    Navigator.of(context).pushReplacementNamed('/faq_page');
                   }
                 },
                 offset: 7.0,

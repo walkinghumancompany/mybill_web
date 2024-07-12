@@ -6,7 +6,6 @@ class MainDesktop extends StatefulWidget {
   final bool isActive;
   final Key resetKey;
   const MainDesktop({
-    Key? key,
     required this.resetKey,
     required this.scrollController,
     required this.isActive,
@@ -172,7 +171,7 @@ class _MainDesktopState extends State<MainDesktop> {
             child: Image.asset(
               _currentImage,
               fit: BoxFit.contain,
-              key: UniqueKey(),  // 매번 새로운 키를 생성하여 위젯을 강제로 재생성
+              key: ValueKey(_currentImage),
               gaplessPlayback: false,
               cacheWidth: null, // 캐시 비활성화
               cacheHeight: null, // 캐시 비활성화
@@ -185,7 +184,6 @@ class _MainDesktopState extends State<MainDesktop> {
 
   @override
   void dispose() {
-    _currentImage;
     _removeOverlays();
     widget.scrollController.removeListener(_scrollListener);
     super.dispose();

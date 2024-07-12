@@ -3,7 +3,13 @@ import 'package:mybill_web/models/colors_model.dart';
 
 class MainMobile extends StatefulWidget {
   final ScrollController scrollController;
-  const MainMobile({Key? key, required this.scrollController}) : super(key: key);
+  final bool isActive;
+  final Key resetKey;
+  const MainMobile({
+    required this.resetKey,
+    required this.scrollController,
+    required this.isActive,
+  }) : super(key: resetKey);
 
   @override
   State<MainMobile> createState() => _MainMobileState();
@@ -15,8 +21,8 @@ class _MainMobileState extends State<MainMobile> {
   final GlobalKey _globalKey_business = GlobalKey();
   final GlobalKey _globalKey_citizen = GlobalKey();
   ColorsModel _colorsModel = ColorsModel();
-  late OverlayEntry _overlayEntry;
-  late OverlayEntry _overlayEntry_grid;
+  OverlayEntry? _overlayEntry;
+  OverlayEntry? _overlayEntry_grid;
   String _currentImage = 'assets/menubar-home.png';
   String _currentMenu = 'HOME';
 
@@ -24,49 +30,78 @@ class _MainMobileState extends State<MainMobile> {
   void initState() {
     super.initState();
     WidgetsBinding.instance?.addPostFrameCallback((_) {
-      _overlayEntry = _createOverlayEntry();
-      _overlayEntry_grid = _overlayGrid();
-      Overlay.of(context)?.insert(_overlayEntry);
-      Overlay.of(context)?.insert(_overlayEntry_grid);
-      widget.scrollController.addListener(_scrollListener);
+      _updateOverlays();
     });
+    widget.scrollController.addListener(_scrollListener);
+  }
+
+  void _updateOverlays() {
+    if (widget.isActive) {
+      _addOverlays();
+    } else {
+      _removeOverlays();
+    }
+  }
+
+  void _addOverlays() {
+    _removeOverlays();  // 기존 오버레이를 먼저 제거
+    if (mounted) {
+      setState(() {
+        _overlayEntry = _createOverlayEntry();
+        _overlayEntry_grid = _overlayGrid();
+      });
+      Overlay.of(context)?.insert(_overlayEntry!);
+      Overlay.of(context)?.insert(_overlayEntry_grid!);
+    }
+  }
+
+  void _removeOverlays() {
+    _overlayEntry?.remove();
+    _overlayEntry_grid?.remove();
+    _overlayEntry = null;
+    _overlayEntry_grid = null;
   }
 
   void _scrollListener() {
     if (widget.scrollController.hasClients) {
       final scrollPosition = widget.scrollController.offset;
+      String newMenu;
+      String newImage;
       if (scrollPosition >= 0 && scrollPosition < 500) {
-        _updateImage('assets/menubar-home.png');
-        _updateCurrentMenu('HOME');
+        newMenu = 'HOME';
+        newImage = 'assets/menubar-home.png';
       } else if (scrollPosition >= 500 && scrollPosition < 950) {
-        _updateImage('assets/menubar-mybill.png');
-        _updateCurrentMenu('마이빌소개');
+        newMenu = '마이빌소개';
+        newImage = 'assets/menubar-mybill.png';
       } else if (scrollPosition >= 950 && scrollPosition < 1690) {
-        _updateImage('assets/menubar-business.png');
-        _updateCurrentMenu('사업자플랫폼');
-      } else if (scrollPosition >= 1690) {
-        _updateImage('assets/menubar-citizen.png');
-        _updateCurrentMenu('소규모입주민회');
+        newMenu = '사업자플랫폼';
+        newImage = 'assets/menubar-business.png';
+      } else {
+        newMenu = '소규모입주민회';
+        newImage = 'assets/menubar-citizen.png';
       }
-      setState(() {});
+
+      if (_currentMenu != newMenu || _currentImage != newImage) {
+        _updateCurrentMenuAndImage(newMenu, newImage);
+      }
     }
   }
+
+  void _updateCurrentMenuAndImage(String newMenu, String newImage) {
+    setState(() {
+      _currentMenu = newMenu;
+      _currentImage = newImage;
+    });
+    _addOverlays();  // 오버레이를 완전히 재생성
+  }
+
   void _updateCurrentMenu(String menu) {
     if (_currentMenu != menu) {
       setState(() {
         _currentMenu = menu;
       });
-      _overlayEntry.markNeedsBuild();
+      _overlayEntry?.markNeedsBuild();
     }
-  }
-
-
-  void _updateImage(String imgPath) {
-    if (_currentImage != imgPath) {
-      setState(() {
-        _currentImage = imgPath;
-      });
-    } _overlayEntry_grid.markNeedsBuild();
   }
 
   OverlayEntry _createOverlayEntry() {
@@ -93,10 +128,14 @@ class _MainMobileState extends State<MainMobile> {
   Widget _buildMenuItem(String title, GlobalKey key) {
     return GestureDetector(
       onTap: () {
-        Scrollable.ensureVisible(
-          key.currentContext!,
-          duration: Duration(seconds: 1),
-        );
+        print('이동확인');
+        if (key.currentContext != null) {
+          print('이동확인이동확인');
+          Scrollable.ensureVisible(
+            key.currentContext!,
+            duration: Duration(seconds: 1),
+          );
+        }
         _updateCurrentMenu(title);
       },
       child: Container(
@@ -109,37 +148,42 @@ class _MainMobileState extends State<MainMobile> {
             fontWeight: FontWeight.w500,
             fontSize: 11,
             color: _currentMenu == title ? _colorsModel.main : _colorsModel.gr1, // 수정
+            decoration: TextDecoration.none,
           ),
         ),
       ),
     );
-
   }
 
   OverlayEntry _overlayGrid() {
     return OverlayEntry(
-      builder: (context) => Positioned(
-        top: MediaQuery.of(context).size.height * 0.3,
-        right: MediaQuery.of(context).size.width * 0.29 - 60,
-        child: Container(
-          alignment: Alignment.topCenter,
-          padding: EdgeInsets.only(top: 5),
-          width: 50,
-          height: 120,
-          child: Image.asset(
-            _currentImage,
-            fit: BoxFit.contain,
+      builder: (context) {
+        return Positioned(
+          top: MediaQuery.of(context).size.height * 0.3,
+          right: MediaQuery.of(context).size.width * 0.29 - 60,
+          child: Container(
+            alignment: Alignment.topCenter,
+            padding: EdgeInsets.only(top: 5),
+            width: 50,
+            height: 120,
+            child: Image.asset(
+              _currentImage,
+              fit: BoxFit.contain,
+              key: ValueKey(_currentImage),
+              gaplessPlayback: false,
+              cacheWidth: null, // 캐시 비활성화
+              cacheHeight: null, // 캐시 비활성화
+            ),
           ),
-        ),
-      ),
+        );
+      },
     );
   }
 
   @override
   void dispose() {
+    _removeOverlays();
     widget.scrollController.removeListener(_scrollListener);
-    _overlayEntry.remove();
-    _overlayEntry_grid.remove();
     super.dispose();
   }
 
@@ -268,7 +312,7 @@ class _MainMobileState extends State<MainMobile> {
                   fit: BoxFit.contain,),
               ),
               const SizedBox(
-                height: 100,
+                height: 1000,
               )
             ],
           ),
