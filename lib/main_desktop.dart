@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:mybill_web/models/colors_model.dart';
+import 'package:provider/provider.dart';
+import 'business_imageSlider.dart';
+import 'citizen_imageSlider.dart';
+import 'main.dart';
 
 class MainDesktop extends StatefulWidget {
   final ScrollController scrollController;
@@ -26,7 +30,6 @@ class _MainDesktopState extends State<MainDesktop> {
   OverlayEntry? _overlayEntry_grid;
   String _currentImage = 'assets/menubar-home.png';
   String _currentMenu = 'HOME';
-
 
   @override
   void initState() {
@@ -90,7 +93,6 @@ class _MainDesktopState extends State<MainDesktop> {
   }
 
   void _updateCurrentMenuAndImage(String newMenu, String newImage) {
-    print('Updating menu to: $newMenu, image to: $newImage');
     setState(() {
       _currentMenu = newMenu;
       _currentImage = newImage;
@@ -159,7 +161,6 @@ class _MainDesktopState extends State<MainDesktop> {
   OverlayEntry _overlayGrid() {
     return OverlayEntry(
       builder: (context) {
-        print('_overlayGrid called. Current image: $_currentImage');
         return Positioned(
           top: MediaQuery.of(context).size.height * 0.3,
           right: MediaQuery.of(context).size.width * 0.29 - 60,
@@ -211,44 +212,23 @@ class _MainDesktopState extends State<MainDesktop> {
               Container(
                 key: _globalKey_introduce,
                 alignment: Alignment.topCenter,
-                height: 85,
+                width: MediaQuery.of(context).size.width * 1,
                 child: Image.asset('assets/main-app&web.png',
                   fit: BoxFit.contain,),
               ),
               const SizedBox(
                 height: 10,
               ),
-              Container(
-                alignment: Alignment.topCenter,
-                height: 280,
-                decoration: BoxDecoration(
-                    border: Border.all(
-                        width: 1
-                    )
-                ),
-              ),
-              const SizedBox(
-                height: 75,
-              ),
               //-------------------건물관리 사업자 01--------------------
               Container(
                 key: _globalKey_business,
                 alignment: Alignment.topCenter,
-                height: 25,
-                child: Image.asset('assets/mainNumber01.png',
-                  fit: BoxFit.contain,),
-              ),
-              const SizedBox(
-                height: 10,
-              ),
-              Container(
-                alignment: Alignment.topCenter,
-                height: 85,
+                width: MediaQuery.of(context).size.width * 0.6,
                 child: Image.asset('assets/main-business.png',
                   fit: BoxFit.contain,),
               ),
               const SizedBox(
-                height: 15,
+                height: 5,
               ),
               Container(
                 alignment: Alignment.topCenter,
@@ -257,36 +237,22 @@ class _MainDesktopState extends State<MainDesktop> {
                   fit: BoxFit.contain,),
               ),
               const SizedBox(
-                height: 75,
+                height: 35,
               ),
-              Container(
-                alignment: Alignment.topCenter,
-                child: Image.asset('assets/main-business01.png',
-                  width: MediaQuery.of(context).size.width * 1,
-                  fit: BoxFit.contain,),
-              ),
+              BusinessImageSlider(),
               const SizedBox(
-                height: 75,
+                height: 55,
               ),
               //-------------------임대업 및 소규모입주민회 02--------------------
               Container(
                 key: _globalKey_citizen,
                 alignment: Alignment.topCenter,
-                height: 25,
-                child: Image.asset('assets/mainNumber02.png',
-                  fit: BoxFit.contain,),
-              ),
-              const SizedBox(
-                height: 10,
-              ),
-              Container(
-                alignment: Alignment.topCenter,
-                height: 85,
+                width: MediaQuery.of(context).size.width * 0.6,
                 child: Image.asset('assets/main-citizen.png',
                   fit: BoxFit.contain,),
               ),
               const SizedBox(
-                height: 15,
+                height: 5,
               ),
               Container(
                 alignment: Alignment.topCenter,
@@ -295,23 +261,25 @@ class _MainDesktopState extends State<MainDesktop> {
                   fit: BoxFit.contain,),
               ),
               const SizedBox(
-                height: 75,
+                height: 35,
               ),
-              Container(
-                alignment: Alignment.topCenter,
-                child: Image.asset('assets/main-business02.png',
-                  width: MediaQuery.of(context).size.width * 1,
-                  fit: BoxFit.contain,),
-              ),
+              CitizenImageSlider(),
               const SizedBox(
-                height: 30,
+                height: 55,
               ),
               Container(
                 alignment: Alignment.center,
                 height: 75,
                 padding: EdgeInsets.all(20),
-                child: Image.asset('assets/main-lastButton.png',
-                  fit: BoxFit.contain,),
+                child:
+                GestureDetector(
+                  onTap: () {
+                    Provider.of<MainMobileState>(context, listen: false).setActive(false);
+                    Navigator.of(context).pushReplacementNamed('/service_introduce');
+                  },
+                  child: Image.asset('assets/main-lastButton.png',
+                    fit: BoxFit.contain,),
+                ),
               ),
               const SizedBox(
                 height: 100,
