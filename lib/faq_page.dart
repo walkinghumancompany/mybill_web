@@ -5,6 +5,7 @@ import 'calculator/classification_platform.dart';
 import 'package:mybill_web/models/colors_model.dart';
 import 'package:mybill_web/common_app_bar.dart';
 
+import 'footer.dart';
 import 'main.dart';
 
 class FaqPage extends StatefulWidget {
@@ -122,6 +123,9 @@ class _FaqPageState extends State<FaqPage> {
                         if (deviceType == 0)  _buildMobileLayout(),
                         if (deviceType == 1)  _buildTabletLayout(),
                         if (deviceType == 2)  _buildDesktopLayout(),
+                        if (deviceType == 0) FooterMobile(),
+                        if (deviceType == 1) FooterTablet(),
+                        if (deviceType == 2) FooterDesktop(),
                       ],
                     ),
                   ),
@@ -242,7 +246,7 @@ Widget _buildMobileLayout() {
           ),
         ),
         const SizedBox(
-          height: 50,
+          height: 150,
         )
       ],
     ),

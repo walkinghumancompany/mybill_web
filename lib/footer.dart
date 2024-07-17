@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 
@@ -14,132 +15,37 @@ class FooterMobile extends StatelessWidget {
           color: Colors.grey,
         ),
         Container(
-          height: 170,
-          color: Color(0xffF9F9F9),
-          child: Row(
-            children: [
-              Container(
-                width: MediaQuery.of(context).size.width * 0.68,
-                padding: EdgeInsets.only(left: 10),
-                child: Column(
-                  children: [
-                    const SizedBox(
-                      height: 30,
-                    ),
-                    Container(
-                      alignment: Alignment.centerLeft,
-                      child: const Text(
-                        'MYBILL',
-                        style: TextStyle(
-                          fontFamily: 'AppleSDGothicNeo',
-                          fontWeight: FontWeight.w700,
-                          fontSize: 18,
-                          color: Colors.black,
-                        ),
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 10,
-                    ),
-                    Container(
-                      alignment: Alignment.centerLeft,
-                      child: const Text(
-                        '상호명 : 주식회사 마이빌',
-                        style: TextStyle(
-                          fontFamily: 'AppleSDGothicNeo',
-                          fontWeight: FontWeight.w500,
-                          fontSize: 13.5,
-                          color: Colors.black,
-                        ),
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 2.5,
-                    ),
-                    Container(
-                      alignment: Alignment.centerLeft,
-                      child: const Text(
-                        '대표 : 최훈',
-                        style: TextStyle(
-                          fontFamily: 'AppleSDGothicNeo',
-                          fontWeight: FontWeight.w500,
-                          fontSize: 13.5,
-                          color: Colors.black,
-                        ),
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 2.5,
-                    ),
-                    Container(
-                      alignment: Alignment.centerLeft,
-                      child: const Text(
-                        '사업자등록번호 : 199-88-02887',
-                        style: TextStyle(
-                          fontFamily: 'AppleSDGothicNeo',
-                          fontWeight: FontWeight.w500,
-                          fontSize: 13.5,
-                          color: Colors.black,
-                        ),
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 2.5,
-                    ),
-                    Container(
-                      alignment: Alignment.centerLeft,
-                      child: const Text(
-                        '주소 : 경상남도 하동군 금남면 큰삼내길2',
-                        style: TextStyle(
-                          fontFamily: 'AppleSDGothicNeo',
-                          fontWeight: FontWeight.w500,
-                          fontSize: 13.5,
-                          color: Colors.black,
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
+          height: 180,
+          width: MediaQuery.of(context).size.width * 1,
+          color: Colors.black,
+          child: Align(
+            alignment: Alignment.topLeft,
+            child: Padding(
+              padding: EdgeInsets.only(left: 35, top: 30),
+              child: Image.asset(
+                'assets/footerMobileText.png',
+                fit: BoxFit.contain,
+                height: 170,
               ),
-              Container(
-                width: MediaQuery.of(context).size.width * 0.32,
-                alignment: Alignment.center,
-                child: Column(
-                  children: [
-                    const SizedBox(
-                      height: 42,
-                    ),
-                    Container(
-                      alignment: Alignment.center,
-                      padding: EdgeInsets.zero,
-                      child: const Text('고객센터',
-                        style: TextStyle(
-                          fontFamily: 'AppleSDGothicNeo',
-                          fontWeight: FontWeight.w500,
-                          fontSize: 14,
-                          color: Colors.black,
-                        ),),
-                    ),
-                    const SizedBox(
-                      height: 12,
-                    ),
-                    Container(
-                      alignment: Alignment.center,
-                      padding: EdgeInsets.zero,
-                      child: const Text('1566-3988',
-                        style: TextStyle(
-                          fontFamily: 'AppleSDGothicNeo',
-                          fontWeight: FontWeight.w600,
-                          fontSize: 18,
-                          color: Colors.black,
-                        ),),
-                    )
-                  ],
-                ),
-              ),
-            ],
+            ),
           ),
-        )
+        ),
+        Container(
+          height: 85,
+          width: MediaQuery.of(context).size.width * 1,
+          color: Colors.black,
+          child: Align(
+            alignment: Alignment.topLeft,
+            child: Padding(
+              padding: EdgeInsets.only(left: 30, top: 30),
+              child: Image.asset(
+                'assets/footerLogo.png',
+                fit: BoxFit.contain,
+                height: 24,
+              ),
+            ),
+          ),
+        ),
       ],
     );
   }
@@ -159,130 +65,25 @@ class FooterTablet extends StatelessWidget {
         ),
         Container(
           height: 155,
-          color: Color(0xffF9F9F9),
+          color: Colors.black,
           child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Container(
-                width: MediaQuery.of(context).size.width * 0.6,
-                padding: const EdgeInsets.only(left: 24),
-                child: Column(
-                  children: [
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    Container(
-                      alignment: Alignment.centerLeft,
-                      child: const Text(
-                        'MYBILL',
-                        style: TextStyle(
-                          fontFamily: 'AppleSDGothicNeo',
-                          fontWeight: FontWeight.w700,
-                          fontSize: 18,
-                          color: Colors.black,
-                        ),
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 12,
-                    ),
-                    Container(
-                      alignment: Alignment.centerLeft,
-                      child: const Text(
-                        '상호명 : 주식회사 마이빌',
-                        style: TextStyle(
-                          fontFamily: 'AppleSDGothicNeo',
-                          fontWeight: FontWeight.w500,
-                          fontSize: 13.5,
-                          color: Colors.black,
-                        ),
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 2.5,
-                    ),
-                    Container(
-                      alignment: Alignment.centerLeft,
-                      child: const Text(
-                        '대표 : 최훈',
-                        style: TextStyle(
-                          fontFamily: 'AppleSDGothicNeo',
-                          fontWeight: FontWeight.w500,
-                          fontSize: 13.5,
-                          color: Colors.black,
-                        ),
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 2.5,
-                    ),
-                    Container(
-                      alignment: Alignment.centerLeft,
-                      child: const Text(
-                        '사업자등록번호 : 199-88-02887',
-                        style: TextStyle(
-                          fontFamily: 'AppleSDGothicNeo',
-                          fontWeight: FontWeight.w500,
-                          fontSize: 13.5,
-                          color: Colors.black,
-                        ),
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 2.5,
-                    ),
-                    Container(
-                      alignment: Alignment.centerLeft,
-                      child: const Text(
-                        '주소 : 경상남도 하동군 금남면 큰삼내길2',
-                        style: TextStyle(
-                          fontFamily: 'AppleSDGothicNeo',
-                          fontWeight: FontWeight.w500,
-                          fontSize: 13.5,
-                          color: Colors.black,
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
+                padding: EdgeInsets.only(left: 20, bottom: 0),
+                height: 85,
+                child: Image.asset('assets/footerText.png',
+                  fit: BoxFit.contain,),
               ),
               Container(
-                width: MediaQuery.of(context).size.width * 0.2,
-                child: Column(
-                  children: [
-                    const SizedBox(
-                      height: 50,
-                    ),
-                    Container(
-                      alignment: Alignment.center,
-                      padding: EdgeInsets.zero,
-                      child: const Text('고객센터',
-                        style: TextStyle(
-                          fontFamily: 'AppleSDGothicNeo',
-                          fontWeight: FontWeight.w500,
-                          fontSize: 14,
-                          color: Colors.black,
-                        ),),
-                    ),
-                    const SizedBox(
-                      height: 9,
-                    ),
-                    Container(
-                      alignment: Alignment.center,
-                      padding: EdgeInsets.zero,
-                      child: const Text('1566-3988',
-                        style: TextStyle(
-                          fontFamily: 'AppleSDGothicNeo',
-                          fontWeight: FontWeight.w600,
-                          fontSize: 18,
-                          color: Colors.black,
-                        ),),
-                    )
-                  ],
-                ),
+                height: 23,
+                padding: EdgeInsets.only(right: 35, bottom: 0),
+                child: Image.asset('assets/footerLogo.png',
+                  fit: BoxFit.contain,),
               )
             ],
           ),
-        )
+        ),
       ],
     );
   }
@@ -302,95 +103,22 @@ class FooterDesktop extends StatelessWidget {
         ),
         Container(
           height: 155,
-          color: Color(0xffF9F9F9),
+          color: Colors.black,
           child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Container(
-                width: MediaQuery.of(context).size.width * 0.35,
-                padding: const EdgeInsets.only(left: 24),
-                child: const Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    SizedBox(height: 20),
-                    Text(
-                      'MYBILL',
-                      style: TextStyle(
-                        fontFamily: 'AppleSDGothicNeo',
-                        fontWeight: FontWeight.w700,
-                        fontSize: 18,
-                        color: Colors.black,
-                      ),
-                    ),
-                    SizedBox(height: 12),
-                    Text(
-                      '상호명 : 주식회사 마이빌',
-                      style: TextStyle(
-                        fontFamily: 'AppleSDGothicNeo',
-                        fontWeight: FontWeight.w500,
-                        fontSize: 13.5,
-                        color: Colors.black,
-                      ),
-                    ),
-                    SizedBox(height: 2.5),
-                    Text(
-                      '대표 : 최훈',
-                      style: TextStyle(
-                        fontFamily: 'AppleSDGothicNeo',
-                        fontWeight: FontWeight.w500,
-                        fontSize: 13.5,
-                        color: Colors.black,
-                      ),
-                    ),
-                    SizedBox(height: 2.5),
-                    Text(
-                      '사업자등록번호 : 199-88-02887',
-                      style: TextStyle(
-                        fontFamily: 'AppleSDGothicNeo',
-                        fontWeight: FontWeight.w500,
-                        fontSize: 13.5,
-                        color: Colors.black,
-                      ),
-                    ),
-                    SizedBox(height: 2.5),
-                    Text(
-                      '주소 : 경상남도 하동군 금남면 큰삼내길2',
-                      style: TextStyle(
-                        fontFamily: 'AppleSDGothicNeo',
-                        fontWeight: FontWeight.w500,
-                        fontSize: 13.5,
-                        color: Colors.black,
-                      ),
-                    ),
-                  ],
-                ),
+                padding: EdgeInsets.only(left: 20, bottom: 0),
+                height: 110,
+                child: Image.asset('assets/footerText.png',
+                fit: BoxFit.contain,),
               ),
               Container(
-                width: MediaQuery.of(context).size.width * 0.15,
-                child: const Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      '고객센터',
-                      style: TextStyle(
-                        fontFamily: 'AppleSDGothicNeo',
-                        fontWeight: FontWeight.w500,
-                        fontSize: 14,
-                        color: Colors.black,
-                      ),
-                    ),
-                    SizedBox(height: 9),
-                    Text(
-                      '1566-3988',
-                      style: TextStyle(
-                        fontFamily: 'AppleSDGothicNeo',
-                        fontWeight: FontWeight.w600,
-                        fontSize: 18,
-                        color: Colors.black,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
+                height: 27.5,
+                padding: EdgeInsets.only(right: 80, bottom: 0),
+                child: Image.asset('assets/footerLogo.png',
+                fit: BoxFit.contain,),
+              )
             ],
           ),
         ),

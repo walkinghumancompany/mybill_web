@@ -56,11 +56,15 @@ class _MainPageState extends State<MainPage> {
     }
 
     return Scaffold(
-        appBar: CommonAppBar(
+      extendBodyBehindAppBar: true,
+      appBar: PreferredSize(
+        preferredSize: Size.fromHeight(kToolbarHeight),
+        child: CommonAppBar(
           title: '',
           deviceType: deviceType,
           widthMultiplier: widthMultiplier,
         ),
+      ),
         resizeToAvoidBottomInset: false,
         backgroundColor: _colorsModel.wh,
       body: Consumer<MainDesktopState>(

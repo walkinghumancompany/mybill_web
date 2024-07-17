@@ -72,13 +72,13 @@ class _MainDesktopState extends State<MainDesktop> {
       final scrollPosition = widget.scrollController.offset;
       String newMenu;
       String newImage;
-      if (scrollPosition >= 0 && scrollPosition < 500) {
+      if (scrollPosition >= 0 && scrollPosition < 400) {
         newMenu = 'HOME';
         newImage = 'assets/menubar-home.png';
-      } else if (scrollPosition >= 500 && scrollPosition < 950) {
+      } else if (scrollPosition >= 400 && scrollPosition < 820) {
         newMenu = '마이빌소개';
         newImage = 'assets/menubar-mybill.png';
-      } else if (scrollPosition >= 950 && scrollPosition < 1690) {
+      } else if (scrollPosition >= 820 && scrollPosition < 1690) {
         newMenu = '사업자플랫폼';
         newImage = 'assets/menubar-business.png';
       } else {
@@ -206,14 +206,14 @@ class _MainDesktopState extends State<MainDesktop> {
                   height: 450,),
               ),
               const SizedBox(
-                height: 70,
+                height: 55,
               ),
               //-------------------서비스 소개--------------------
               Container(
                 key: _globalKey_introduce,
                 alignment: Alignment.topCenter,
                 width: MediaQuery.of(context).size.width * 1,
-                child: Image.asset('assets/main-app&web.png',
+                child: Image.asset('assets/mainDesktop-app&web.png',
                   fit: BoxFit.contain,),
               ),
               const SizedBox(
@@ -223,21 +223,12 @@ class _MainDesktopState extends State<MainDesktop> {
               Container(
                 key: _globalKey_business,
                 alignment: Alignment.topCenter,
-                width: MediaQuery.of(context).size.width * 0.6,
+                width: MediaQuery.of(context).size.width * 0.2,
                 child: Image.asset('assets/main-business.png',
                   fit: BoxFit.contain,),
               ),
               const SizedBox(
-                height: 5,
-              ),
-              Container(
-                alignment: Alignment.topCenter,
                 height: 55,
-                child: Image.asset('assets/mainDownArrow.png',
-                  fit: BoxFit.contain,),
-              ),
-              const SizedBox(
-                height: 35,
               ),
               BusinessImageSlider(),
               const SizedBox(
@@ -247,21 +238,12 @@ class _MainDesktopState extends State<MainDesktop> {
               Container(
                 key: _globalKey_citizen,
                 alignment: Alignment.topCenter,
-                width: MediaQuery.of(context).size.width * 0.6,
+                width: MediaQuery.of(context).size.width * 0.2,
                 child: Image.asset('assets/main-citizen.png',
                   fit: BoxFit.contain,),
               ),
               const SizedBox(
-                height: 5,
-              ),
-              Container(
-                alignment: Alignment.topCenter,
                 height: 55,
-                child: Image.asset('assets/mainDownArrow.png',
-                  fit: BoxFit.contain,),
-              ),
-              const SizedBox(
-                height: 35,
               ),
               CitizenImageSlider(),
               const SizedBox(

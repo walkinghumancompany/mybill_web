@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 
 
 class BusinessImageSlider extends StatefulWidget {
+
+  const BusinessImageSlider({Key? key}) : super(key: key);
+
   @override
   _BusinessImageSliderState createState() => _BusinessImageSliderState();
 }

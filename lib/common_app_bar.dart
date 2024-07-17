@@ -28,7 +28,8 @@ class CommonAppBar extends StatelessWidget implements PreferredSizeWidget {
         width: MediaQuery.of(context).size.width * widthMultiplier,
         child: _buildTitle(context),
       ),
-      backgroundColor: _colorsModel.wh,
+      backgroundColor: Colors.transparent,
+      elevation: 0,
       actions: actions,
     );
   }

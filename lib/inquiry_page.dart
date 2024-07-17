@@ -4,6 +4,7 @@ import 'package:url_launcher/url_launcher.dart';
 import 'calculator/classification_platform.dart';
 import 'package:mybill_web/models/colors_model.dart';
 import 'package:mybill_web/common_app_bar.dart';
+import 'footer.dart';
 import 'main.dart';
 
 
@@ -29,52 +30,54 @@ class _InquiryState extends State<Inquiry> {
 
   @override
   Widget build(BuildContext context) {
-    int deviceType = _classificationPlatform.classifyWithDevice(
-        context: context);
+    int deviceType = _classificationPlatform.classifyWithDevice(context: context);
 
     double widthMultiplier;
     switch (deviceType) {
       case 0: // 모바일
-        widthMultiplier = 1.0; // 전체 너비
+        widthMultiplier = 1.0;
         break;
       case 1: // 태블릿
-        widthMultiplier = 0.8; // 85% 너비
+        widthMultiplier = 0.8;
         break;
       case 2: // 웹
-        widthMultiplier = 0.5; // 70% 너비
+        widthMultiplier = 0.5;
         break;
       default:
-        widthMultiplier = 1.0; // 기본값으로 전체 너비
+        widthMultiplier = 1.0;
     }
+
     return Scaffold(
-        appBar: CommonAppBar(
-          title: '',
-          deviceType: deviceType,
-          widthMultiplier: widthMultiplier,
-        ),
-        resizeToAvoidBottomInset: false,
-        backgroundColor: _colorsModel.wh,
-        body:
-        SingleChildScrollView(
+      appBar: CommonAppBar(
+        title: '',
+        deviceType: deviceType,
+        widthMultiplier: widthMultiplier,
+      ),
+      resizeToAvoidBottomInset: false,
+      backgroundColor: _colorsModel.wh,
+      body: Center(
+        child: Container(
+          width: MediaQuery.of(context).size.width * widthMultiplier,
           child: Column(
-              children: [
-                Center(
-                  child: Container(
-                    width: MediaQuery.of(context).size.width * widthMultiplier,
-                    color: _colorsModel.wh,
-                    child: Column(
-                      children: [
-                        // 여기에 각 디바이스 타입에 따른 레이아웃 구성 요소를 추가합니다.
-                        if (deviceType == 0)  _buildMobileLayout(),
-                        if (deviceType == 1)  _buildTabletLayout(),
-                        if (deviceType == 2)  _buildDesktopLayout(),
-                      ],
-                    ),
+            children: [
+              Expanded(
+                child: SingleChildScrollView(
+                  child: Column(
+                    children: [
+                      if (deviceType == 0) _buildMobileLayout(),
+                      if (deviceType == 1) _buildTabletLayout(),
+                      if (deviceType == 2) _buildDesktopLayout(),
+                    ],
                   ),
-                )
-              ]
+                ),
+              ),
+              if (deviceType == 0) FooterMobile(),
+              if (deviceType == 1) FooterTablet(),
+              if (deviceType == 2) FooterDesktop(),
+            ],
           ),
-        )
+        ),
+      ),
     );
   }
 
@@ -83,7 +86,7 @@ class _InquiryState extends State<Inquiry> {
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         const SizedBox(
-          height: 100,
+          height: 30,
         ),
         Container(
           width: 50,
@@ -148,7 +151,10 @@ class _InquiryState extends State<Inquiry> {
                 fontSize: 15.7,
                 color: Color(0xFF1F5372),
               ),),
-            ))
+            )),
+        const SizedBox(
+          height: 55,
+        )
       ],
     );
   }
