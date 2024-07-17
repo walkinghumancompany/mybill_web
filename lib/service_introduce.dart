@@ -100,28 +100,20 @@ class _ServiceIntroduceState extends State<ServiceIntroduce> {
   Future<void> _changeVideo() async {
     setState(() {
       _isLoading = true;
-      _chewieController?.pause();
-      _chewieController = _chewieControllers[currentIndex];
     });
 
-    await _chewieController!.videoPlayerController.play();
+    // 현재 재생 중인 비디오를 일시 정지합니다.
+    await _chewieControllers[currentIndex]!.pause();
+
+    // 새 비디오의 컨트롤러를 가져옵니다.
+    _chewieController = _chewieControllers[currentIndex];
+
+    // 새 비디오를 처음부터 재생합니다.
+    await _chewieController!.seekTo(Duration.zero);
+    await _chewieController!.play();
 
     setState(() {
       _isLoading = false;
-    });
-  }
-
-  Future<void> _initializeVideo() async {
-    _videoPlayerController = VideoPlayerController.asset(video[currentIndex]);
-    await _videoPlayerController.initialize();
-    setState(() {
-      _chewieController = ChewieController(
-        videoPlayerController: _videoPlayerController,
-        autoPlay: true,
-        looping: true,
-        showControls: false,
-        showOptions: false,
-      );
     });
   }
 
@@ -213,7 +205,7 @@ class _ServiceIntroduceState extends State<ServiceIntroduce> {
               Container(
                 alignment: Alignment.topCenter,
                 height: 380,
-                child: _chewieControllers.isNotEmpty && !_isLoading
+                child: _chewieControllers.isNotEmpty
                     ? Chewie(controller: _chewieControllers[currentIndex]!)
                     : Center(
                   child: CircularProgressIndicator(
