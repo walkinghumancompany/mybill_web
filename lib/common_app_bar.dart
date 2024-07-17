@@ -281,8 +281,7 @@ class CommonAppBar extends StatelessWidget implements PreferredSizeWidget {
                 }
               },
               child: Image.asset(
-                'assets/Logo.png',
-                width: 28,
+                'assets/linkButton.png',
                 height: 28,
                 fit: BoxFit.contain,
               ),

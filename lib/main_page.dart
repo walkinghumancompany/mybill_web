@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mybill_web/footer.dart';
+import 'package:mybill_web/main_tablet.dart';
 import 'package:provider/provider.dart';
 import 'calculator/classification_platform.dart';
 import 'package:mybill_web/models/colors_model.dart';
@@ -24,7 +25,6 @@ class _MainPageState extends State<MainPage> {
   void initState() {
     super.initState();
     _scrollController = ScrollController();
-
   }
 
   @override
@@ -38,7 +38,8 @@ class _MainPageState extends State<MainPage> {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       Provider.of<MainDesktopState>(context, listen: false).setActive(true);
     });
-    int deviceType = _classificationPlatform.classifyWithDevice(context: context);
+    int deviceType = _classificationPlatform.classifyWithDevice(
+        context: context);
 
     double widthMultiplier;
     switch (deviceType) {
@@ -65,8 +66,8 @@ class _MainPageState extends State<MainPage> {
           widthMultiplier: widthMultiplier,
         ),
       ),
-        resizeToAvoidBottomInset: false,
-        backgroundColor: _colorsModel.wh,
+      resizeToAvoidBottomInset: false,
+      backgroundColor: _colorsModel.wh,
       body: Consumer<MainDesktopState>(
         builder: (context, mainDesktopState, child) {
           return SingleChildScrollView(
@@ -75,7 +76,10 @@ class _MainPageState extends State<MainPage> {
                 children: [
                   Center(
                     child: Container(
-                      width: MediaQuery.of(context).size.width * widthMultiplier,
+                      width: MediaQuery
+                          .of(context)
+                          .size
+                          .width * widthMultiplier,
                       color: _colorsModel.wh,
                       child: Column(
                         children: [
@@ -84,8 +88,13 @@ class _MainPageState extends State<MainPage> {
                               scrollController: _scrollController,
                               isActive: mainDesktopState.isActive
                           ),
-                          if (deviceType == 1) _buildTabletLayout(),
-                          if (deviceType == 2 && mainDesktopState.isActive) MainDesktop(
+                          if (deviceType == 1) MainTablet(
+                              resetKey: UniqueKey(),
+                              scrollController: _scrollController,
+                              isActive: mainDesktopState.isActive
+                          ),
+                          if (deviceType == 2 &&
+                              mainDesktopState.isActive) MainDesktop(
                             resetKey: UniqueKey(),
                             scrollController: _scrollController,
                             isActive: mainDesktopState.isActive,
@@ -104,9 +113,4 @@ class _MainPageState extends State<MainPage> {
       ),
     );
   }
-
-  Widget _buildTabletLayout() {
-    return Container(); // 태블릿 레이아웃 구현
-  }
-
 }

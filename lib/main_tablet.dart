@@ -1,25 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:mybill_web/models/colors_model.dart';
 import 'package:provider/provider.dart';
-import 'business_imageSliderMobile.dart';
-import 'citizen_imageSliderMobile.dart';
+import 'business_imageSliderTablet.dart';
+import 'citizen_imageSliderTablet.dart';
 import 'main.dart';
 
-class MainMobile extends StatefulWidget {
+class MainTablet extends StatefulWidget {
   final ScrollController scrollController;
   final bool isActive;
   final Key resetKey;
-  const MainMobile({
+  const MainTablet({
     required this.resetKey,
     required this.scrollController,
     required this.isActive,
   }) : super(key: resetKey);
 
   @override
-  State<MainMobile> createState() => _MainMobileState();
+  State<MainTablet> createState() => _MainTabletState();
 }
 
-class _MainMobileState extends State<MainMobile> {
+class _MainTabletState extends State<MainTablet> {
   final GlobalKey _globalKey_home = GlobalKey();
   final GlobalKey _globalKey_introduce = GlobalKey();
   final GlobalKey _globalKey_business = GlobalKey();
@@ -49,8 +49,8 @@ class _MainMobileState extends State<MainMobile> {
                 opacity: 0.1,
                 child: Image.asset('assets/main.png',
                   fit: BoxFit.contain,
-                  // width: MediaQuery.of(context).size.width * 1,
-                  height: 355,),
+                  width: MediaQuery.of(context).size.width * 1,
+                 ),
               ),
               const SizedBox(
                 height: 55,
@@ -60,45 +60,45 @@ class _MainMobileState extends State<MainMobile> {
                 key: _globalKey_introduce,
                 alignment: Alignment.topCenter,
                 width: MediaQuery.of(context).size.width * 1,
-                child: Image.asset('assets/main-app&web.png',
+                child: Image.asset('assets/mainDesktop-app&web.png',
                   fit: BoxFit.contain,),
               ),
               const SizedBox(
-                height: 55,
+                height: 65,
               ),
               //-------------------건물관리 사업자 01--------------------
               Container(
                 key: _globalKey_business,
                 alignment: Alignment.topCenter,
-                width: MediaQuery.of(context).size.width * 0.6,
+                width: MediaQuery.of(context).size.width * 0.35,
                 child: Image.asset('assets/main-business.png',
                   fit: BoxFit.contain,),
               ),
               const SizedBox(
-                height: 55,
+                height: 75,
               ),
-              BusinessImageSliderMobile(),
+              BusinessImageSliderTablet(),
               const SizedBox(
-                height: 55,
+                height: 65,
               ),
               //-------------------임대업 및 소규모입주민회 02--------------------
               Container(
                 key: _globalKey_citizen,
                 alignment: Alignment.topCenter,
-                width: MediaQuery.of(context).size.width * 0.6,
+                width: MediaQuery.of(context).size.width * 0.35,
                 child: Image.asset('assets/main-citizen.png',
                   fit: BoxFit.contain,),
               ),
               const SizedBox(
-                height: 55,
+                height: 75,
               ),
-              CitizenImageSliderMobile(),
+              CitizenImageSliderTablet(),
               const SizedBox(
-                height: 55,
+                height: 65,
               ),
               Container(
                 alignment: Alignment.center,
-                width: MediaQuery.of(context).size.width * 1,
+                width: MediaQuery.of(context).size.width * 0.7,
                 padding: EdgeInsets.all(20),
                 child:
                 GestureDetector(
@@ -106,12 +106,12 @@ class _MainMobileState extends State<MainMobile> {
                     Provider.of<MainMobileState>(context, listen: false).setActive(false);
                     Navigator.of(context).pushReplacementNamed('/service_introduce');
                   },
-                  child: Image.asset('assets/mainMobile-lastbutton.png',
+                  child: Image.asset('assets/main-lastButton.png',
                     fit: BoxFit.contain,),
                 ),
               ),
               const SizedBox(
-                height: 45,
+                height: 55,
               )
             ],
           ),
@@ -122,11 +122,11 @@ class _MainMobileState extends State<MainMobile> {
             child: Image.asset(
               'assets/desktopText01.png',
               fit: BoxFit.contain,
-              height: 52,
+              height: 62,
             ),
           ),
           Positioned(
-            top: 280,
+            top: 380,
             left: 0,
             right: 0,
             child: Image.asset(
@@ -136,7 +136,7 @@ class _MainMobileState extends State<MainMobile> {
             ),
           ),
           Positioned(
-            top: 310,
+            top: 400,
             left: 0,
             right: 0,
             child: Image.asset(
@@ -146,7 +146,7 @@ class _MainMobileState extends State<MainMobile> {
             ),
           ),
           Positioned(
-              top: 245,
+              top: 340,
               left: 0,
               right: 0,
               child: Image.asset('assets/circle.png',
