@@ -46,7 +46,7 @@ class _MainMobileState extends State<MainMobile> {
             children: [
               Opacity(
                 key: _globalKey_home,
-                opacity: 0.1,
+                opacity: 0.5,
                 child: Image.asset('assets/main.png',
                   fit: BoxFit.contain,
                   // width: MediaQuery.of(context).size.width * 1,
@@ -126,7 +126,7 @@ class _MainMobileState extends State<MainMobile> {
             ),
           ),
           Positioned(
-            top: 280,
+            top: 260,
             left: 0,
             right: 0,
             child: Image.asset(
@@ -136,7 +136,7 @@ class _MainMobileState extends State<MainMobile> {
             ),
           ),
           Positioned(
-            top: 310,
+            top: 280,
             left: 0,
             right: 0,
             child: Image.asset(
@@ -146,7 +146,7 @@ class _MainMobileState extends State<MainMobile> {
             ),
           ),
           Positioned(
-              top: 245,
+              top: 230,
               left: 0,
               right: 0,
               child: Image.asset('assets/circle.png',

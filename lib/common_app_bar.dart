@@ -126,80 +126,88 @@ class CommonAppBar extends StatelessWidget implements PreferredSizeWidget {
         return Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            GestureDetector(
-              onTap: () {
-                Navigator.of(context).pushNamed('/main');
-              },
-              child: Image.asset('assets/mybillLogo.png',
-                fit: BoxFit.contain,
-                height: 24,)
+            Padding(
+              padding: EdgeInsets.only(left: 20),
+              child:
+              GestureDetector(
+                  onTap: () {
+                    Navigator.of(context).pushNamed('/main');
+                  },
+                  child: Image.asset('assets/mybillLogo.png',
+                    fit: BoxFit.contain,
+                    height: 24,)
+              ),
             ),
-            Theme(
-              data: ThemeData(
-                popupMenuTheme: PopupMenuThemeData(
-                  color: Colors.white,
-                  elevation: 0, // 그림자 제거
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(4.0)),
+            Padding(
+              padding: EdgeInsets.only(right: 20),
+              child:
+              Theme(
+                data: ThemeData(
+                  popupMenuTheme: PopupMenuThemeData(
+                    color: Colors.white,
+                    elevation: 0, // 그림자 제거
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(4.0)),
+                    ),
                   ),
                 ),
-              ),
-              child: CustomPopupMenuButton(
-                menuItems: const <PopupMenuEntry<int>>[
-                  PopupMenuItem<int>(
-                    value: 0,
-                    child: Text(
-                      '서비스소개',
-                      style: TextStyle(
-                        fontFamily: 'AppleSDGothicNeo',
-                        fontWeight: FontWeight.w500,
-                        fontSize: 12.5,
-                        color: Colors.black,
+                child: CustomPopupMenuButton(
+                  menuItems: const <PopupMenuEntry<int>>[
+                    PopupMenuItem<int>(
+                      value: 0,
+                      child: Text(
+                        '서비스소개',
+                        style: TextStyle(
+                          fontFamily: 'AppleSDGothicNeo',
+                          fontWeight: FontWeight.w500,
+                          fontSize: 12.5,
+                          color: Colors.black,
+                        ),
                       ),
                     ),
-                  ),
-                  PopupMenuItem<int>(
-                    value: 1,
-                    child: Text(
-                      '견적문의',
-                      style: TextStyle(
-                        fontFamily: 'AppleSDGothicNeo',
-                        fontWeight: FontWeight.w500,
-                        fontSize: 12.5,
-                        color: Colors.black,
+                    PopupMenuItem<int>(
+                      value: 1,
+                      child: Text(
+                        '견적문의',
+                        style: TextStyle(
+                          fontFamily: 'AppleSDGothicNeo',
+                          fontWeight: FontWeight.w500,
+                          fontSize: 12.5,
+                          color: Colors.black,
+                        ),
                       ),
                     ),
-                  ),
-                  PopupMenuItem<int>(
-                    value: 2,
-                    child: Text(
-                      'FAQ',
-                      style: TextStyle(
-                        fontFamily: 'AppleSDGothicNeo',
-                        fontWeight: FontWeight.w500,
-                        fontSize: 12.5,
-                        color: Colors.black,
+                    PopupMenuItem<int>(
+                      value: 2,
+                      child: Text(
+                        'FAQ',
+                        style: TextStyle(
+                          fontFamily: 'AppleSDGothicNeo',
+                          fontWeight: FontWeight.w500,
+                          fontSize: 12.5,
+                          color: Colors.black,
+                        ),
                       ),
                     ),
+                  ],
+                  onSelected: (int result) {
+                    if (result == 0) {
+                      Navigator.of(context).pushNamed('/service_introduce');
+                    } else if (result == 1) {
+                      Navigator.of(context).pushNamed('/inquiry_page');
+                    }
+                    else if (result == 2) {
+                      Navigator.of(context).pushNamed('/faq_page');
+                    }
+                  },
+                  offset: 7.0,
+                  backgroundColor: Colors.white,
+                  child: Image.asset(
+                    'assets/List.png',
+                    width: 34,
+                    height: 34,
+                    fit: BoxFit.contain,
                   ),
-                ],
-                onSelected: (int result) {
-                  if (result == 0) {
-                    Navigator.of(context).pushNamed('/service_introduce');
-                  } else if (result == 1) {
-                    Navigator.of(context).pushNamed('/inquiry_page');
-                  }
-                  else if (result == 2) {
-                    Navigator.of(context).pushNamed('/faq_page');
-                  }
-                },
-                offset: 7.0,
-                backgroundColor: Colors.white,
-                child: Image.asset(
-                  'assets/List.png',
-                  width: 34,
-                  height: 34,
-                  fit: BoxFit.contain,
                 ),
               ),
             ),
@@ -209,6 +217,9 @@ class CommonAppBar extends StatelessWidget implements PreferredSizeWidget {
         return Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
+            const SizedBox(
+              width: 5,
+            ),
             GestureDetector(
                 onTap: () {
                   Provider.of<MainDesktopState>(context, listen: false).setActive(true);
@@ -286,6 +297,9 @@ class CommonAppBar extends StatelessWidget implements PreferredSizeWidget {
                 fit: BoxFit.contain,
               ),
             ),
+            const SizedBox(
+              width: 5,
+            )
           ],
         );
       default:

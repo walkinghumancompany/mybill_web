@@ -199,11 +199,10 @@ class _MainDesktopState extends State<MainDesktop> {
             children: [
               Opacity(
                 key: _globalKey_home,
-                opacity: 0.1,
+                opacity: 0.5,
                 child: Image.asset('assets/main.png',
                   fit: BoxFit.contain,
-                  // width: MediaQuery.of(context).size.width * 1,
-                  height: 450,),
+                  width: MediaQuery.of(context).size.width * 1,),
               ),
               const SizedBox(
                 height: 55,
@@ -269,7 +268,7 @@ class _MainDesktopState extends State<MainDesktop> {
             ],
           ),
           Positioned(
-            top: 80,
+            top: 150,
             left: 0,
             right: 0,
             child: Image.asset(
@@ -279,7 +278,7 @@ class _MainDesktopState extends State<MainDesktop> {
             ),
           ),
           Positioned(
-            top: 410,
+            top: 580,
             left: 0,
             right: 0,
             child: Image.asset(
@@ -289,7 +288,7 @@ class _MainDesktopState extends State<MainDesktop> {
             ),
           ),
           Positioned(
-            top: 435,
+            top: 600,
             left: 0,
             right: 0,
             child: Image.asset(
@@ -299,7 +298,7 @@ class _MainDesktopState extends State<MainDesktop> {
             ),
           ),
           Positioned(
-              top: 365,
+              top: 540,
               left: 0,
               right: 0,
               child: Image.asset('assets/circle.png',

@@ -46,7 +46,7 @@ class _MainTabletState extends State<MainTablet> {
             children: [
               Opacity(
                 key: _globalKey_home,
-                opacity: 0.1,
+                opacity: 0.5,
                 child: Image.asset('assets/main.png',
                   fit: BoxFit.contain,
                   width: MediaQuery.of(context).size.width * 1,
@@ -116,7 +116,7 @@ class _MainTabletState extends State<MainTablet> {
             ],
           ),
           Positioned(
-            top: 80,
+            top: 120,
             left: 0,
             right: 0,
             child: Image.asset(
@@ -126,7 +126,7 @@ class _MainTabletState extends State<MainTablet> {
             ),
           ),
           Positioned(
-            top: 380,
+            top: 580,
             left: 0,
             right: 0,
             child: Image.asset(
@@ -136,7 +136,7 @@ class _MainTabletState extends State<MainTablet> {
             ),
           ),
           Positioned(
-            top: 400,
+            top: 600,
             left: 0,
             right: 0,
             child: Image.asset(
@@ -146,7 +146,7 @@ class _MainTabletState extends State<MainTablet> {
             ),
           ),
           Positioned(
-              top: 340,
+              top: 550,
               left: 0,
               right: 0,
               child: Image.asset('assets/circle.png',
